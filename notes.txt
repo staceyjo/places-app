@@ -1,0 +1,12 @@
+- This project was created with npx create-react-app frontend
+- removed boilerplate from App.js, index.css, App.css and index.js
+- Added components and pages under each model for places, user and shared
+- npm install --save react-router-dom@5 --save-exact
+- in App.js, import BrowserRouter from react
+- in /user/pages create User.js, import React and add boilerplate implementation to export Users
+- in App.js, import Users.js
+- add the exact route path
+- add a redirect so if a user types anything outside of / it will redirect to main pages
+- Add NewPlace.js in /places/pages, import React and add boilerplate implementation to export NewPlace
+- Adding the switch component instructs react router to not evaluate the redirect if an exact path is followed for /places/new
+- Set us new user components UserList.js and UserItem.js and .css files for each 
