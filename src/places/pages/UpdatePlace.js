@@ -4,14 +4,22 @@ import { useParams } from "react-router-dom"
 
 import Input from "../../shared/components/FormElements/Input/Input";
 import Button from "../../shared/components/FormElements/Button/Button";
-import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../shared/utilities/validators"
+
+import {
+    VALIDATOR_REQUIRE,
+    VALIDATOR_MINLENGTH
+} from "../../shared/utilities/validators"
+
+import "./PlaceForm.css"
+
 
 const DUMMY_PLACES = [
     {
         id: 'p1',
         title: 'Stone Mountain',
         description: '16 miles east of Atlanta, a quartz monzonite dome monadnock surrounded by 3200 acres of natural beauty!',
-        imageUrl: 'https://img1.10bestmedia.com/Images/Photos/6617/p-StoneMountain_55_660x440_201404181445.jpg',
+        imageUrl:
+            'https://img1.10bestmedia.com/Images/Photos/6617/p-StoneMountain_55_660x440_201404181445.jpg',
         address: '1000 Robert E Lee Blvd, Stone Mountain, GA 30083',
         location: {
             lat: 33.8053189,
@@ -37,19 +45,18 @@ const DUMMY_PLACES = [
 const UpdatePlace = () => {
     const placeId = useParams().placeId;
 
-    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId)
+    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
 
     if (!identifiedPlace) {
         return (
             <div className="center">
                 <h2>Could not find place!</h2>
             </div>
-        )
-
+        );
     }
 
     return (
-        <form>
+        <form className="place-form">
             <Input
                 id="title"
                 element="input"
@@ -61,24 +68,21 @@ const UpdatePlace = () => {
                 value={identifiedPlace.title}
                 valid={true}
             />
-
             <Input
                 id="description"
                 element="textarea"
                 label="Description"
                 validators={[VALIDATOR_MINLENGTH(5)]}
-                errorText="Please enter a valid description (at least 5 characters)."
+                errorText="Please enter a valid description (min. 5 characters)."
                 onInput={() => { }}
                 value={identifiedPlace.description}
                 valid={true}
             />
-
             <Button type="submit" disabled={true}>
                 UPDATE PLACE
             </Button>
-
         </form>
-    )
-}
+    );
+};
 
-export default UpdatePlace
+export default UpdatePlace;
