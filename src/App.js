@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useCallback } from "react"
 // set up routing
 import {
   BrowserRouter as Router,
@@ -13,44 +13,84 @@ import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from "./places/pages/UpdatePlace";
 import Auth from "./user/pages/Auth";
 import MainNavigation from './shared/components/Navigation/MainNavigation';
+import { AuthContext } from "./shared/context/auth-context";
 
 // import './App.css';
 
 
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const login = useCallback(() => {
+    setIsLoggedIn(true)
+  }, [])
+
+  const logout = useCallback(() => {
+    setIsLoggedIn(false)
+  }, [])
+
+  let routes
+
+  if (isLoggedIn) {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
+
+        <Route path="/:userId/places" exact>
+          <UserPlaces />
+        </Route>
+
+        <Route path="/places/new" exact>
+          <NewPlace />
+        </Route>
+
+        <Route path="/places/:placeId">
+          <UpdatePlace />
+        </Route>
+
+        <Redirect to="/" />
+
+      </Switch>
+
+    )
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
+
+        <Route path="/:userId/places" exact>
+          <UserPlaces />
+        </Route>
+
+        <Route path="/auth">
+          <Auth />
+        </Route>
+
+        <Redirect to="/auth" />
+
+      </Switch>
+
+    )
+  }
+
+
+
   return (
-    <Router>
-      <MainNavigation />
-      <main>
-        <Switch>
+    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}>
+      <Router>
+        <MainNavigation />
+        <main>
 
-          <Route path="/" exact>
-            <Users />
-          </Route>
+          {routes}
 
-          <Route path="/:userId/places" exact>
-            <UserPlaces />
-          </Route>
-
-          <Route path="/places/new" exact>
-            <NewPlace />
-          </Route>
-
-          <Route path="/places/:placeId">
-            <UpdatePlace />
-          </Route>
-
-          <Route path="/auth">
-            <Auth />
-          </Route>
-
-
-          <Redirect to="/" />
-
-        </Switch>
-      </main>
-    </Router>
+        </main>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 
