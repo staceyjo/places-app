@@ -10,3 +10,6 @@
 - Add NewPlace.js in /places/pages, import React and add boilerplate implementation to export NewPlace
 - Adding the switch component instructs react router to not evaluate the redirect if an exact path is followed for /places/new
 - Set us new user components UserList.js and UserItem.js and .css files for each 
+
+The backend was created using Node.Js as a JS runtime outside the browers, 
+- DOM APIs will be removed and 
