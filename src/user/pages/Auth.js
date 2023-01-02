@@ -204,57 +204,66 @@ const Auth = () => {
     // to fix it/ work around it, we need to attach the right headers to our response
     // need to fix in server.js
 
+    const errorHandler = () => {
+        setError(null)
+    }
+
 
     return (
-        <Card className="authentication">
-            {isLoading && <LoadingSpinner asOverlay/>}
+        <React.Fragment>
+            <ErrorModal error={error} onClear={errorHandler}/>
 
-            <h2>Login Required</h2>
+            <Card className="authentication">
+                {isLoading && <LoadingSpinner asOverlay />}
 
-            <hr />
+                <h2>Login Required</h2>
 
-            <form onSubmit={authSubmitHandler}>
-                {!isLoginMode && (
+                <hr />
+
+                <form onSubmit={authSubmitHandler}>
+                    {!isLoginMode && (
+                        <Input
+                            element="input"
+                            id="name"
+                            type="text"
+                            label="Your Name"
+                            validators={[VALIDATOR_REQUIRE]}
+                            errorText="Please enter a name."
+                            onInput={inputHandler}
+                        />)}
                     <Input
                         element="input"
-                        id="name"
-                        type="text"
-                        label="Your Name"
-                        validators={[VALIDATOR_REQUIRE]}
-                        errorText="Please enter a name."
+                        id="email"
+                        type="email"
+                        label="E-Mail"
+                        validators={[VALIDATOR_EMAIL()]}
+                        errorText="Please enter a valid email address."
                         onInput={inputHandler}
-                    />)}
-                <Input
-                    element="input"
-                    id="email"
-                    type="email"
-                    label="E-Mail"
-                    validators={[VALIDATOR_EMAIL()]}
-                    errorText="Please enter a valid email address."
-                    onInput={inputHandler}
-                />
+                    />
 
-                <Input
-                    element="input"
-                    id="password"
-                    type="password"
-                    label="Password"
-                    validators={[VALIDATOR_MINLENGTH(5)]}
-                    errorText="Please enter a valid password, at least 5 characters."
-                    onInput={inputHandler}
-                />
+                    <Input
+                        element="input"
+                        id="password"
+                        type="password"
+                        label="Password"
+                        validators={[VALIDATOR_MINLENGTH(5)]}
+                        errorText="Please enter a valid password, at least 5 characters."
+                        onInput={inputHandler}
+                    />
 
-                <Button type="submit" disabled={!formState.isValid}>
-                    {isLoginMode ? "LOGIN" : "SIGNUP"}
+                    <Button type="submit" disabled={!formState.isValid}>
+                        {isLoginMode ? "LOGIN" : "SIGNUP"}
+                    </Button>
+
+                </form>
+
+                <Button inverse onClick={switchModeHandler}>
+                    SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
                 </Button>
 
-            </form>
+            </Card>
 
-            <Button inverse onClick={switchModeHandler}>
-                SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
-            </Button>
-
-        </Card>
+        </React.Fragment>
     );
 };
 
