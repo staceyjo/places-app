@@ -3,6 +3,9 @@ import React, { useState, useContext } from 'react';
 import Card from '../../shared/components/UIElements/Card/Card';
 import Input from '../../shared/components/FormElements/Input/Input';
 import Button from '../../shared/components/FormElements/Button/Button';
+import ErrorModal from '../../shared/components/UIElements/Modals/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner/LoadingSpinner';
+
 
 import {
     VALIDATOR_EMAIL,
@@ -21,6 +24,21 @@ const Auth = () => {
 
     const [isLoginMode, setIsLoginMode] = useState(true)
 
+
+    // loading will take longer when we connect to a server, 
+    // would be nice to set some indicator since we're not
+    // giving the user any feedback on front end
+    const [isLoading, setIsLoading] = useState(false)
+
+
+    // what if another error occurs?
+    // right now there is a way to hack your own account
+    // by inspecting the page and manually disabling attributes
+    // not really a security issue- since you would be hacking yourself
+    const [error, setError] = useState()
+
+
+
     const [formState, inputHandler, setFormData] = useForm(
         {
             email: {
@@ -34,6 +52,8 @@ const Auth = () => {
         },
         false
     );
+
+
 
     const switchModeHandler = () => {
         if (!isLoginMode) {
@@ -89,6 +109,9 @@ const Auth = () => {
             // just in case it fails- wrap everything in try catch
             try {
 
+                setIsLoading(true);
+
+
                 // send Http request with fetch() api which is provided
                 // by the brower, could also use axios
                 // fetch needs the string that points to the backend
@@ -126,14 +149,26 @@ const Auth = () => {
                 // since this also returns a new promise, we need to use await
                 const responseData = await response.json()
                 console.log(responseData)
+
+                // after we get the response (or an error) we can set isLoading to false again
+                setIsLoading(false);
+
+
+                // finally log in if there are no errors
+                auth.login()
+
             } catch (error) {
                 // will need to fix error handling
                 console.log(error)
+
+
+                // after we get the response (or an error) we can set isLoading to false again
+                setIsLoading(false);
+
+                // if we have an error send a message or a fallback in case the message doesn't exist
+                setError(error.message || "Something went wrong, please try again.")
             }
         }
-
-        auth.login()
-
     };
 
     // experiencing a CORS error
@@ -153,6 +188,7 @@ const Auth = () => {
 
     return (
         <Card className="authentication">
+            {isLoading && <LoadingSpinner asOverlay/>}
 
             <h2>Login Required</h2>
 
