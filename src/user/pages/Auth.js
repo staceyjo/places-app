@@ -98,19 +98,96 @@ const Auth = () => {
 
         // console.log(formState.inputs);
 
-        // since we don't always want to sign-up when we reach
-        // this functiom, we need to check if login mode is true
+        setIsLoading(true);
 
+
+        // since we don't always want to sign-up when we reach
+        // this function, we need to check if login mode is true
         // // and if not true (else), we want to send the request
         if (isLoginMode) {
+            // just in case it fails- wrap everything in try catch
+            try {
+
+                // send Http request with fetch() api which is provided
+                // by the brower, could also use axios
+                // fetch needs the string that points to the backend
+                // and pass in the post request to create a user
+                // by configruing the method property to POST
+                const response = await fetch("http://localhost:5000/api/users/login", {
+                    method: "POST",
+
+                    // add the header key and
+                    // set the headers key to add key value pairs that are 
+                    // attached to the headers of the outgoing request
+                    // set content type to application/json
+                    // without that, the BE won't know which kind of data it receives
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    // now we can attach some data
+                    // body always has to be in json format
+                    // and we can call stringify method which takes regualr 
+                    // JS data, like an array or an object and converts itto JSON
+                    // we then pass through the form data as an object
+                    // the email and password are all useds as checks in the 
+                    // login POST route and in the user-controllers when we 
+                    // login
+                    // formState comes from the useForm hook which manages the different pieces of data
+                    // the submit button we made is ONLY clickable if we have a valid form
+                    body: JSON.stringify({
+                        email: formState.inputs.email.value,
+                        password: formState.inputs.password.value
+                    })
+                })
+                // call .json to parse response body
+                // since this also returns a new promise, we need to use await
+                const responseData = await response.json()
+
+                // allowed to login/ be redirected with 500 or 400 status code
+                // this is a fetch() API issue
+                // the front end treats it like a response, which it technically is
+                // you sent a request and you got back a response
+                // the ok property is a property that exists on the response object
+                // it will be okay with a 200 level response
+                // if not okay- we have a higher level reponse error
+                // and can throw an error 
+                // and use the default JS error object
+                // to basically pass the response data message
+                // which should exist bc we send a message back on 
+                // every error on the backend ( i think)
+                // when we throw an error, then the catch block should trigger --works
+                if (!response.ok) {
+                    throw new Error(responseData.message)
+                }
+
+
+                // console.log(responseData)
+
+                // after we get the response (or an error) we can set isLoading to false again
+                setIsLoading(false);
+
+
+                // finally log in if there are no errors
+                auth.login()
+
+            } catch (error) {
+                // will need to fix error handling
+                console.log(error)
+
+
+                // after we get the response (or an error) we can set isLoading to false again
+                setIsLoading(false);
+
+                // if we have an error send a message or a fallback in case the message doesn't exist
+                setError(error.message || "Something went wrong, please try again.")
+            }
+
 
         } else {
 
             // just in case it fails- wrap everything in try catch
             try {
-
-                setIsLoading(true);
-
 
                 // send Http request with fetch() api which is provided
                 // by the brower, could also use axios
@@ -167,7 +244,7 @@ const Auth = () => {
                 }
 
 
-                console.log(responseData)
+                // console.log(responseData)
 
                 // after we get the response (or an error) we can set isLoading to false again
                 setIsLoading(false);
@@ -211,7 +288,7 @@ const Auth = () => {
 
     return (
         <React.Fragment>
-            <ErrorModal error={error} onClear={errorHandler}/>
+            <ErrorModal error={error} onClear={errorHandler} />
 
             <Card className="authentication">
                 {isLoading && <LoadingSpinner asOverlay />}
