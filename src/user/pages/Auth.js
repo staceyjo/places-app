@@ -148,6 +148,25 @@ const Auth = () => {
                 // call .json to parse response body
                 // since this also returns a new promise, we need to use await
                 const responseData = await response.json()
+
+                // allowed to login/ be redirected with 500 or 400 status code
+                // this is a fetch() API issue
+                // the front end treats it like a response, which it technically is
+                // you sent a request and you got back a response
+                // the ok property is a property that exists on the response object
+                // it will be okay with a 200 level response
+                // if not okay- we have a higher level reponse error
+                // and can throw an error 
+                // and use the default JS error object
+                // to basically pass the response data message
+                // which should exist bc we send a message back on 
+                // every error on the backend ( i think)
+                // when we throw an error, then the catch block should trigger --works
+                if (!response.ok) {
+                    throw new Error(responseData.message)
+                }
+
+
                 console.log(responseData)
 
                 // after we get the response (or an error) we can set isLoading to false again
