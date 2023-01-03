@@ -118,7 +118,7 @@ const Auth = () => {
                 // fetch needs the string that points to the backend
                 // and pass in the post request to create a user
                 // by configruing the method property to POST
-                await sendRequest(
+                const responseData = await sendRequest(
                     "http://localhost:5000/api/users/login",
                     "POST",
                     JSON.stringify({
@@ -176,7 +176,7 @@ const Auth = () => {
                 // setIsLoading(false);
 
                 // finally log in if there are no errors
-                auth.login()
+                auth.login(responseData.user.id)
 
             } catch (error) { }
             //     // will need to fix error handling
@@ -202,7 +202,7 @@ const Auth = () => {
                 // fetch needs the string that points to the backend
                 // and pass in the post request to create a user
                 // by configruing the method property to POST
-                await sendRequest(
+                const responseData = await sendRequest(
                     "http://localhost:5000/api/users/signup",
                     "POST",
                     JSON.stringify({
@@ -231,7 +231,7 @@ const Auth = () => {
                     // formState comes from the useForm hook which manages the different pieces of data
                     // the submit button we made is ONLY clickable if we have a valid form 
                 )
-                auth.login();
+                auth.login(responseData.user.id);
             } catch (error) {
 
                 // after we get the response (or an error) we can set isLoading to false again
