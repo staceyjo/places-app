@@ -5,6 +5,7 @@ import Input from '../../shared/components/FormElements/Input/Input';
 import Button from '../../shared/components/FormElements/Button/Button';
 import ErrorModal from '../../shared/components/UIElements/Modals/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner/LoadingSpinner';
+import ImageUpload from "../../shared/components/FormElements/ImageUpload/ImageUpload"
 
 
 import {
@@ -325,6 +326,9 @@ const Auth = () => {
                             errorText="Please enter a name."
                             onInput={inputHandler}
                         />)}
+
+                    {!isLoginMode && <ImageUpload center id="image"/> }
+
                     <Input
                         element="input"
                         id="email"
