@@ -4,7 +4,6 @@ import Card from "../../shared/components/UIElements/Card/Card"
 import PlaceItem from "./PlaceItem";
 import Button from '../../shared/components/FormElements/Button/Button';
 
-
 import "./PlaceList.css"
 
 
@@ -32,6 +31,7 @@ const PlaceList = props => {
                     address={place.address}
                     creatorId={place.creator}
                     coordinates={place.location}
+                    onDelete={props.onDeletePlace}
                 />
             ))}
         </ul>
