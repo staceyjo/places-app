@@ -8,7 +8,7 @@ import Button from '../../shared/components/FormElements/Button/Button';
 import "./PlaceList.css"
 
 
-const PlaceList = (props) => {
+const PlaceList = props => {
     if (props.items.length === 0) {
         return (
             <div className="place-list center">
@@ -17,7 +17,7 @@ const PlaceList = (props) => {
                     <Button to="/places/new">Share Place</Button>
                 </Card>
             </div>
-        )
+        );
     }
 
     return (
