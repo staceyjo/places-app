@@ -64,16 +64,30 @@ const Auth = () => {
             setFormData(
                 {
                     ...formState.inputs,
-                    name: undefined
+                    name: undefined,
+                    // undefined bc when we switch from login to sign up we need to add an image key and set the value
+                    image: undefined
                 },
-                formState.inputs.email.isValid && formState.inputs.email.isValid
+                formState.inputs.email.isValid && formState.inputs.password.isValid
             )
         } else {
-            setFormData({
-                ...formState.inputs,
-                name: "",
-                isValid: false
-            },
+            setFormData(
+                {
+                    ...formState.inputs,
+                    name: {
+                        value: "",
+                        isValid: false
+                    },
+
+                    // switch from login to sign up, we need to set the image as an object
+                    // value is null bc we aren't working with strings
+                    // so an empty string wouldnt make sense
+
+                    image: {
+                        value: null,
+                        isValid:false
+                    }
+                },
                 false
             )
         }
@@ -102,7 +116,7 @@ const Auth = () => {
     const authSubmitHandler = async event => {
         event.preventDefault();
 
-        // console.log(formState.inputs);
+        console.log(formState.inputs);
 
         // setIsLoading(true);
 
@@ -327,7 +341,18 @@ const Auth = () => {
                             onInput={inputHandler}
                         />)}
 
-                    {!isLoginMode && <ImageUpload center id="image"/> }
+                    {/* adds onInput={} here for error- the arguments we pass in on the pickedHandler where we use onInput are: id, pickedfile and fileisvalid */}
+                    {/* also use onInput in the input.js and we fwd the id, value and isValid */}
+                    {/* this is the same as id= id, pickedfile= value and isValid = fileisvalid)  */}
+                    {/* so we can bind auth to input handler */}
+
+                    {/* the input handler function comes from the custom form hook */}
+                    {/* so we can manage our file with the form hook, bc the form hook bc it doesn't cae about the actual data we are managing with it */}
+                    {/* doesn't have to be text data, can be a file as well */}
+                    {/* just have to be sure that when we switch modes-sign up to login */}
+                    {/* we add an image key and set to undefined, see the switchModeHandler */}
+
+                    {!isLoginMode && <ImageUpload center id="image" onInput={inputHandler} />}
 
                     <Input
                         element="input"
