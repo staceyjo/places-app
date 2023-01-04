@@ -113,8 +113,18 @@ const Auth = () => {
 
     // revised:
     // converted to async function in order to use aync await
+    // here in the front end - we pick a file for upload that is part of the form data
+    // the formState that holds the form data
+    // now we need to attach the outgoing request
+    // the tricky part is we are sending differnt types of data
+    // we always send JSON data
+    // JSON is correct for logging inwith email and password
+    // but for the sign-up we are also send the image for the profile picture file upload
+    // and  images are binary data
+
     const authSubmitHandler = async event => {
         event.preventDefault();
+
 
         console.log(formState.inputs);
 
@@ -210,7 +220,24 @@ const Auth = () => {
         } else {
 
             // just in case it fails- wrap everything in try catch
+            // have to use HTML form data- which is already built into the browser
+            // since we need both JSON and binary for signup
             try {
+                // create new HTML form data- its a browser api
+
+                const formData = new FormData()
+
+                // if we store the form data in an object we can append new data
+                // and on form data you can add normal text data AND binary data (like files)
+                // need to specify an identifier- starting with email
+                // then specify the value
+                // the image has a key of "image" because on the backend in user routes, we use "image" key
+                // with file upload in the signup route
+                
+                formData.append("email", formState.inputs.email.value )
+                formData.append("name", formState.inputs.name.value )
+                formData.append("password", formState.inputs.password.value )
+                formData.append("image", formState.inputs.image.value)
 
                 // send Http request with fetch() api which is provided
                 // by the brower, could also use axios
@@ -220,20 +247,28 @@ const Auth = () => {
                 const responseData = await sendRequest(
                     "http://localhost:5000/api/users/signup",
                     "POST",
-                    JSON.stringify({
-                        name: formState.inputs.name.value,
-                        email: formState.inputs.email.value,
-                        password: formState.inputs.password.value
-                    }),
+
+                    // but now we can't use JSON as a format now that we have images to upload
+                    // JSON.stringify({
+                    //     name: formState.inputs.name.value,
+                    //     email: formState.inputs.email.value,
+                    //     password: formState.inputs.password.value
+                    // }),
+
+
+                    // so now we send the form data
+                    // under the hood, the fetch api in sendRequest automatically adds the right content headers
+                    formData
+
 
                     // add the header key and
                     // set the headers key to add key value pairs that are 
                     // attached to the headers of the outgoing request
                     // set content type to application/json
                     // without that, the BE won't know which kind of data it receives
-                    {
-                        "Content-Type": "application/json"
-                    },
+                    // {
+                    //     "Content-Type": "application/json"
+                    // },
 
                     // now we can attach some data
                     // body always has to be in json format
