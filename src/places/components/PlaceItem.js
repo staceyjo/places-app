@@ -101,7 +101,9 @@ const PlaceItem = (props) => {
                     {isLoading && <LoadingSpinner asOverlay />}
 
                     <div className="place-item__image">
-                        <img src={props.image} alt={props.title} />
+                        {/* for initial testing: */}
+                        {/* <img src={props.image} alt={props.title} /> */}
+                        <img src={`http://localhost:5000/${props.image}`} alt={props.title} />
                     </div>
 
                     <div className="place-item__info">
@@ -115,20 +117,21 @@ const PlaceItem = (props) => {
                             VIEW ON MAP
                         </Button>
 
-                        {auth.userId === props.creatorId &&
+                        {auth.userId === props.creatorId && (
                             <Button to={
                                 `/places/${props.id}`
                             }>
                                 EDIT
-                            </Button>}
+                            </Button>
+                        )}
 
-                        {auth.userId === props.creatorId &&
+                        {auth.userId === props.creatorId && (
                             <Button
                                 danger onClick={showDeleteWarningHandler}
                             >
                                 DELETE
                             </Button>
-                        }
+                        )}
                     </div>
                 </Card>
 

@@ -125,7 +125,7 @@ const ImageUpload = props => {
                     {/* output preview URL if we have one  and  only output the image if that's the case*/}
                     {previewURL && <img src={previewURL} alt="Preview" />}
                     {/* if we don't have a preview URL,  */}
-                    {!previewURL && <p>Please pick an image, .jpg .png .jpeg </p>}
+                    {!previewURL && <p>Please pick an image. </p>}
                 </div>
 
                 <Button type="button" onClick={pickImageHandler}>PICK IMAGE</Button>

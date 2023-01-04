@@ -85,7 +85,7 @@ const Auth = () => {
 
                     image: {
                         value: null,
-                        isValid:false
+                        isValid: false
                     }
                 },
                 false
@@ -126,7 +126,7 @@ const Auth = () => {
         event.preventDefault();
 
 
-        console.log(formState.inputs);
+        // console.log(formState.inputs);
 
         // setIsLoading(true);
 
@@ -233,10 +233,10 @@ const Auth = () => {
                 // then specify the value
                 // the image has a key of "image" because on the backend in user routes, we use "image" key
                 // with file upload in the signup route
-                
-                formData.append("email", formState.inputs.email.value )
-                formData.append("name", formState.inputs.name.value )
-                formData.append("password", formState.inputs.password.value )
+
+                formData.append("email", formState.inputs.email.value)
+                formData.append("name", formState.inputs.name.value)
+                formData.append("password", formState.inputs.password.value)
                 formData.append("image", formState.inputs.image.value)
 
                 // send Http request with fetch() api which is provided
@@ -294,7 +294,6 @@ const Auth = () => {
         }
     }
 
-    // // missing
     // // call .json to parse response body
     // // since this also returns a new promise, we need to use await
     // const responseData = await response.json()
@@ -387,7 +386,14 @@ const Auth = () => {
                     {/* just have to be sure that when we switch modes-sign up to login */}
                     {/* we add an image key and set to undefined, see the switchModeHandler */}
 
-                    {!isLoginMode && <ImageUpload center id="image" onInput={inputHandler} />}
+                    {!isLoginMode && (
+                        <ImageUpload
+                            center
+                            id="image"
+                            onInput={inputHandler}
+                            errorText="Please provide an image"
+                        />
+                    )}
 
                     <Input
                         element="input"
