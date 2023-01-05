@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# PLACES- The Full Stack MERN App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MERN stands for MongoDB, Express.js, React.js and Node.js - and combined, these four technologies allow you to build amazing web applications. 
 
-## Available Scripts
+MongoDB: The Places collection for the database is stored using MongoDB version 5.0.14. The database utilizes the shared tier cluster. 
 
-In the project directory, you can run:
+Express.js: 
 
-### `npm start`
+React: This project was bootstrapped with npx create-react-app. In the project directory, you can run: `npm start` [React documentation](https://reactjs.org/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Node.js:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## CRUD
+CRUD refers to the four basic operations a software application should be able to perform – Create, Read, Update, and Delete. CRUD apps consist of 3 parts: an API (or server), a database, and a user interface (UI). The API contains the code and methods, the database stores and helps the user retrieve the information, while the user interface helps users interact with the app.
+![My Remote Image](https://i.ibb.co/b7rjNyd/Screen-Shot-2023-01-05-at-7-44-31-AM.png)
 
-### `npm test`
+![My Remote Image](https://ibb.co/zNSWPLf)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![My Remote Image](https://ibb.co/QHw5ZRn)
 
-### `npm run build`
+![My Remote Image](https://i.ibb.co/c8nmPHt/Screen-Shot-2023-01-05-at-7-51-36-AM.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Development: Backend
+- Backend: [http://localhost:5000](http://localhost:5000) to view it in your browser.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Backend Repo: [https://github.com/staceyjo/places-app-final](https://github.com/staceyjo/places-app-final)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Development: Frontend
+- Frontend: [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Learn More
+- Frontend Repo: [https://github.com/staceyjo/places-app](https://github.com/staceyjo/places-app)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Production
+Used 'npm run build' to create the build folder for production. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Deployment: Netlify: 
 
-### Making a Progressive Web App
+[https://stellular-naiad-9453a0.netlify.app/](https://stellular-naiad-9453a0.netlify.app/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Deployment: Render:
 
-### Deployment
+[https://places2.onrender.com/](https://places2.onrender.com/).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Google Maps JavaScript API
+
+This project uses the Google Maps API to display a map when a user creates a place. The api builds dynamic, interactive, deeply customized maps, location, and geospatial experiences for your web apps.
+
+Learn more: [https://developers.google.com/maps/documentation/javascript](https://developers.google.com/maps/documentation/javascript)
+
+
+
+### Google Maps Geocoding JavaScript API
+
+This project uses the Google Maps Geocoding API. Geocoding is the process of converting addresses (like "1600 Amphitheatre Parkway, Mountain View, CA") into geographic coordinates (like latitude 37.423021 and longitude -122.083739), which you can use to place markers or position the map.  
+
+Learn : [https://developers.google.com/maps/documentation/javascript/geocoding](https://developers.google.com/maps/documentation/javascript/geocoding)
+
+
+### Multer
+Node.js middleware for handling `multipart/form-data`, which is primarily used for uploading files. I used the built in APIs to get the file path of the images which I needed for both file upload and adding and deleting images from disk storage.
+
+Learn: [https://github.com/expressjs/multer](https://github.com/expressjs/multer)
+Learn more: [https://www.npmjs.com/package/multer](https://www.npmjs.com/package/multer)
+
+
+
+
+### Postman
+
+Learned how to use Postman. Postman also enables you to automate API testing, monitor API performance, mock APIs and more. It was helpful to test all the routes to make sure they worked before moving into the backend. 
+Link to my workspace: [16712219-4a0e-4826-8d8e-7a17f7e0faa4]
+
+
+### Pexels
+
+The images used for the app profile pictures were found on pexel: 
+[https://www.pexels.com/collections/headshots-kxyislb/](https://www.pexels.com/collections/headshots-kxyislb/)
+
+
+### Udemy
+This project was built after completing a 19 hour Udemy course: React, NodeJS, Express & MongoDB - The MERN Fullstack Guide. The course has 208 lectures. This course is taught by two ACADEMIND instructors - Max (React.js, Node/ Express) and Manuel (MongoDB) who have years of experience of working with these technologies and teaching them to other people.
+
+[https://discord.gg/zWGwBQqu](https://discord.gg/zWGwBQqu)
+
+
+### Stack Overflow
+Learned how to properly ask a question on Stack Overflow and earned some privledges and badges. See my question here: 
+[https://stackoverflow.com/questions/74988661/typeerror-cannot-read-properties-of-undefined-reading-length](https://stackoverflow.com/questions/74988661/typeerror-cannot-read-properties-of-undefined-reading-length)
+
+
+
+### Errors
+
+Accidently deleted logo192.png and logo512.png from the public folder. So these were removed from the /public/manifest.json to remove the error.
+
+The web app manifest provides information about an application (such as name, author, icon, and description) in a JSON text file. The purpose of the manifest is to install web applications to the homescreen of a device, providing users with quicker access and a richer experience. 
